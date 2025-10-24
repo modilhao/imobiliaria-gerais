@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imobiliária Gerais — A confiança mora aqui.</title>
+  <meta name="description" content="Imobiliária Gerais — credibilidade, autoridade e acolhimento. Em breve, um novo jeito de conectar pessoas e oportunidades com a curadoria do Dr. Juscelino Neto." />
+  <meta property="og:title" content="Imobiliária Gerais — A confiança mora aqui." />
+  <meta property="og:description" content="Credibilidade, autoridade e acolhimento na compra e venda de imóveis com a curadoria do Dr. Juscelino Neto." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#C0362C" />
+
+  <!-- Fonte (opcional, pode remover se quiser 100% local) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --red-minas:#C0362C;
+      --red-dark:#8F2720;
+      --cream:#F7F4F2;
+      --ink:#403B3B;
+      --muted:#7A7373;
+      --gold:#D9A441;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      color:var(--ink);
+      background: radial-gradient(1200px 1200px at 10% 10%, #fff 0%, var(--cream) 100%);
+    }
+
+    .wrap{
+      min-height:100dvh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+
+    .card{
+      width:min(980px, 100%);
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:clamp(24px, 4vw, 48px);
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+
+    /* detalhe sutil de fundo */
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:auto -10% -30% auto;
+      width:420px; height:420px;
+      background:radial-gradient(closest-side, rgba(192,54,44,.12), transparent 70%);
+      transform:rotate(12deg);
+      z-index:-1;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:14px;
+    }
+    .logo{
+      width:56px; height:56px; border-radius:16px;
+      display:grid; place-items:center;
+      box-shadow:0 10px 20px rgba(192,54,44,.20);
+    }
+    .logo img{width:36px; height:36px; object-fit:contain}
+
+    .brand h1{
+      font-size:clamp(20px, 2.2vw, 28px);
+      margin:0;
+      letter-spacing:.3px;
+      font-weight:800;
+      color:var(--ink);
+    }
+    .brand small{
+      display:block;
+      color:var(--muted);
+      font-weight:600;
+      margin-top:2px;
+    }
+
+    .hero{
+      margin-top:24px;
+      display:grid; gap:14px;
+    }
+    .headline{
+      font-size:clamp(28px, 4.2vw, 48px);
+      line-height:1.05;
+      margin:0;
+      font-weight:800;
+      letter-spacing:-.4px;
+    }
+    .sub{
+      font-size:clamp(16px, 2.2vw, 20px);
+      color:#544E4E;
+      margin:6px 0 0 0;
+    }
+    .seal{
+      display:inline-flex; align-items:center; gap:10px;
+      border:1px solid #E8E2E2; border-radius:999px;
+      padding:8px 14px; background:#fff;
+      width:max-content; margin-top:8px;
+      box-shadow: var(--shadow);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px; background:var(--gold);
+    }
+    .seal span{font-size:14px; color:#5a5454; font-weight:700}
+
+    .cta{
+      margin-top:22px;
+      display:flex; flex-wrap:wrap; gap:12px;
+    }
+    .btn{
+      --bg: var(--red-minas);
+      --fg: #fff;
+      background: var(--bg);
+      color:var(--fg);
+      border:none; border-radius:14px;
+      padding:14px 18px;
+      font-weight:800; letter-spacing:.2px;
+      cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:10px;
+      box-shadow:0 12px 24px rgba(192,54,44,.24);
+      transition: transform .08s ease, filter .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: saturate(1.05) }
+    .btn.secondary{
+      --bg:#ffffff; --fg:var(--red-minas);
+      border:1px solid #E8E2E2; box-shadow:var(--shadow);
+    }
+    .btn svg{width:18px; height:18px; fill:currentColor}
+
+    .notify{
+      margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .input{
+      flex:1 1 260px;
+      min-width:220px;
+      border:1px solid #E8E2E2; border-radius:12px;
+      padding:12px 14px; font-size:16px;
+      outline:0;
+    }
+
+    .foot{
+      margin-top:28px;
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      flex-wrap:wrap; color:var(--muted); font-size:14px;
+    }
+    .foot-logo{ height:32px }
+
+    .tagline{
+      color:#6A6262; font-weight:800; letter-spacing:.3px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .tagline .heart{
+      width:10px; height:10px; border-radius:50%;
+      background:var(--red-minas);
+      box-shadow:0 0 0 3px rgba(192,54,44,.18);
+    }
+
+    /* acessibilidade */
+    a:focus-visible, button:focus-visible, input:focus-visible{ outline:3px solid rgba(217,164,65,.6); outline-offset:2px }
+
+    /* responsivo */
+    @media (max-width:560px){
+      .foot{flex-direction:column; align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <section class="card" aria-labelledby="title">
+      <header class="brand" aria-label="Identidade">
+        <div class="logo" aria-hidden="true">
+          <img src="logotipo.png" alt="Imobiliária Gerais">
+        </div>
+        <div>
+          <h1 id="title">Imobiliária Gerais</h1>
+          <small>A confiança mora aqui.</small>
+        </div>
+      </header>
+
+      <div class="hero">
+        <p class="seal" aria-label="Selo de credibilidade">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Curadoria de <strong>Dr. Juscelino Neto</strong></span>
+        </p>
+
+        <h2 class="headline">Estamos preparando uma nova experiência:<br>credibilidade, autoridade e acolhimento em cada oportunidade.</h2>
+        <p class="sub">
+          Em breve, um jeito mais humano de comprar e vender imóveis — com a curadoria do <strong>Dr. Juscelino Neto</strong> e a força da comunidade.
+        </p>
+
+        <div class="cta" role="group" aria-label="Ações principais">
+          <a class="btn" href="https://wa.me/5511999444634?text=Olá%2C%20quero%20ser%20avisado%20sobre%20o%20lançamento%20da%20Imobiliária%20Gerais." target="_blank" rel="noopener">
+            <!-- Whatsapp -->
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.14 1.6 5.94L0 24l6.2-1.62A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 21.6c-2.04 0-4.04-.55-5.8-1.6l-.42-.25-3.45.9.92-3.36-.27-.44A9.58 9.58 0 0 1 2.4 12C2.4 6.68 6.68 2.4 12 2.4c2.56 0 4.96 1 6.77 2.83A9.53 9.53 0 0 1 21.6 12c0 5.32-4.28 9.6-9.6 9.6zm5.2-6.8c-.28-.14-1.65-.81-1.9-.9-.26-.1-.45-.14-.64.14-.19.27-.74.9-.9 1.08-.17.19-.33.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.4-1.65-1.57-1.92-.16-.27-.02-.42.12-.55.12-.12.27-.33.4-.5.14-.17.18-.28.27-.47.1-.2.05-.37-.02-.52-.07-.14-.64-1.55-.88-2.12-.23-.56-.47-.48-.64-.49l-.54-.01c-.2 0-.52.08-.79.37-.27.28-1.03 1-1.03 2.44 0 1.44 1.05 2.83 1.2 3.02.14.19 2.07 3.15 5.02 4.41.7.3 1.25.48 1.67.61.7.22 1.34.19 1.85.12.57-.09 1.75-.72 2-1.42.25-.7.25-1.3.17-1.42-.07-.12-.26-.2-.54-.34z"/></svg>
+            Avise-me no WhatsApp
+          </a>
+
+          <a class="btn secondary" href="mailto:contato@imobiliariagerais.com.br?subject=Quero%20ser%20avisado(a)%20sobre%20o%20lan%C3%A7amento&body=Olá%2C%20meu%20nome%20%C3%A9%20___%20e%20meu%20telefone%20%C3%A9%20___." >
+            <!-- Mail -->
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 13.065 0 6V4l12 7 12-7v2l-12 7.065zM0 8l12 7 12-7v10H0V8z"/></svg>
+            Receber por e-mail
+          </a>
+        </div>
+
+        <form class="notify" action="https://formspree.io/f/xnngerdn" method="POST" aria-label="Cadastro de e-mail simples">
+          <input class="input" type="email" name="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" required>
+          <button class="btn secondary" type="submit" aria-label="Enviar e-mail de interesse">Enviar</button>
+        </form>
+      </div>
+
+      <footer class="foot" role="contentinfo">
+        <div class="tagline"><span class="heart" aria-hidden="true"></span> A confiança mora aqui.</div>
+        <div>© <span id="y"></span> Imobiliária Gerais • Curadoria de <strong>Dr. Juscelino Neto</strong></div>
+        <img class="foot-logo" src="logo.png" alt="Imobiliária Gerais">
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // ano dinâmico no rodapé
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // "envio" simples via mailto com o e-mail digitado
+    function emailMe(e){
+      e.preventDefault();
+      const email = e.target.email.value.trim();
+      if(!email) return false;
+      const subject = encodeURIComponent('Interesse — Lançamento Imobiliária Gerais');
+      const body = encodeURIComponent(`Olá, quero ser avisado(a) sobre o lançamento da Imobiliária Gerais.\n\nMeu e-mail: ${email}\n\n(Se desejar, responda a este e-mail com seu nome e telefone.)`);
+      const link = `mailto:contato@imobiliariagerais.com.br?subject=${subject}&body=${body}`;
+      window.location.href = link;
+      e.target.reset();
+      return false;
+    }
+  </script>
+</body>
+</html>
