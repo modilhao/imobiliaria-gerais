@@ -24,9 +24,16 @@
       --gold:#D9A441;
       --radius:18px;
       --shadow:0 10px 30px rgba(0,0,0,.08);
+      /* animação */
+      --ease: cubic-bezier(.22, 1, .36, 1);
+      --easeOut: cubic-bezier(.16, .84, .44, 1);
+      --duration-quick: 180ms;
+      --duration-std: 320ms;
+      --duration-slow: 600ms;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       font-family: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
@@ -38,7 +45,9 @@
       min-height:100dvh;
       display:grid;
       place-items:center;
-      padding:24px;
+      padding: clamp(16px, 3.8vw, 32px);
+      padding-top: calc(clamp(16px, 3.8vw, 32px) + env(safe-area-inset-top, 0px));
+      padding-bottom: calc(clamp(16px, 3.8vw, 32px) + env(safe-area-inset-bottom, 0px));
     }
 
     .card{
@@ -50,6 +59,8 @@
       position:relative;
       overflow:hidden;
       isolation:isolate;
+      will-change: opacity, transform;
+      animation: cardEnter var(--duration-slow) var(--easeOut) both;
     }
 
     /* detalhe sutil de fundo */
@@ -129,9 +140,11 @@
       font-weight:800; letter-spacing:.2px;
       cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:10px;
       box-shadow:0 12px 24px rgba(192,54,44,.24);
-      transition: transform .08s ease, filter .2s ease;
+      transition: transform var(--duration-quick) var(--easeOut), filter var(--duration-std) var(--easeOut), box-shadow var(--duration-std) var(--easeOut);
+      will-change: transform, filter;
     }
-    .btn:hover{ transform: translateY(-1px); filter: saturate(1.05) }
+    .btn:hover{ transform: translateY(-1px); filter: saturate(1.06) brightness(1.02) }
+    .btn:active{ transform: translateY(0) scale(.99) }
     .btn.secondary{
       --bg:#ffffff; --fg:var(--red-minas);
       border:1px solid #E8E2E2; box-shadow:var(--shadow);
@@ -169,9 +182,54 @@
     /* acessibilidade */
     a:focus-visible, button:focus-visible, input:focus-visible{ outline:3px solid rgba(217,164,65,.6); outline-offset:2px }
 
+    /* animações de entrada/reveal */
+    @keyframes cardEnter{from{opacity:0; transform: translateY(8px)} to{opacity:1; transform:none}}
+    .reveal{opacity:0; transform: translateY(10px)}
+    .reveal-in{opacity:1; transform:none; transition: transform var(--duration-std) var(--easeOut), opacity var(--duration-std) var(--easeOut)}
+
     /* responsivo */
     @media (max-width:560px){
       .foot{flex-direction:column; align-items:flex-start}
+    }
+
+    /* ajustes finos iPhone 14 (390x844) e similares */
+    @media (max-width:430px){
+      .card{ border-radius:16px }
+      .brand{ gap:12px }
+      .logo{ width:52px; height:52px }
+      .brand h1{ line-height:1.1 }
+      .headline{ font-size: clamp(26px, 7vw, 36px) }
+      .sub{ font-size: clamp(15px, 4.2vw, 18px) }
+      .hero{ gap:12px }
+      .cta{ gap:10px }
+      .btn{ padding:13px 16px; border-radius:12px }
+      .notify{ gap:8px }
+      .input{ padding:12px; font-size:15px }
+    }
+
+    /* paisagem em smartphones (altura reduzida) */
+    @media (max-height:430px) and (orientation: landscape){
+      .wrap{ padding-top: calc(8px + env(safe-area-inset-top, 0px)); padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)) }
+      .hero{ gap:10px }
+      .logo{ width:48px; height:48px }
+      .logo img{ width:30px; height:30px }
+      .headline{ font-size: clamp(22px, 4.8vw, 28px) }
+      .sub{ font-size: clamp(14px, 3.6vw, 16px) }
+      .cta{ flex-wrap: nowrap; overflow-x:auto; -webkit-overflow-scrolling: touch }
+      .notify{ flex-wrap: nowrap; overflow-x:auto; -webkit-overflow-scrolling: touch }
+    }
+
+    /* reduzir efeitos em dispositivos sem hover */
+    @media (hover:none){
+      .btn{ transition: none }
+    }
+
+    /* preferências de movimento reduzido */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto }
+      .btn, .reveal-in{ transition: none }
+      .card{ animation: none }
+      .reveal, .reveal-in{ opacity:1 !important; transform:none !important }
     }
   </style>
 </head>
@@ -243,6 +301,35 @@
       e.target.reset();
       return false;
     }
+
+    // animações suaves, acessíveis e performáticas (IntersectionObserver)
+    (function(){
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduce) return;
+
+      // aplicar estado inicial reveal
+      const targets = [];
+      const brand = document.querySelector('.brand');
+      if(brand) targets.push(brand);
+      document.querySelectorAll('.hero > *, .foot > *').forEach(el => targets.push(el));
+      targets.forEach((el) => el.classList.add('reveal'));
+
+      // observer de entrada na viewport
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if(entry.isIntersecting){
+            const el = entry.target;
+            // atraso progressivo para sequência natural
+            const idx = targets.indexOf(el);
+            el.style.transitionDelay = `${Math.min(idx * 60, 360)}ms`;
+            el.classList.add('reveal-in');
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      targets.forEach((el) => io.observe(el));
+    })();
   </script>
 </body>
 </html>

@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumy Cajamar — Imobiliária Gerais</title>
+  <meta name="description" content="Lumy Cajamar: apartamentos de 2 e 3 quartos com vaga, lazer completo e benefícios do Minha Casa Minha Vida — em frente ao Ginásio Municipal, no Polvilho." />
+  <meta property="og:title" content="Lumy Cajamar — Imobiliária Gerais" />
+  <meta property="og:description" content="Apartamentos de 2 e 3 quartos com vaga, lazer completo e benefícios do MCMV. Localização privilegiada no Polvilho, em frente ao Ginásio Municipal." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#C0362C" />
+
+  <!-- SEO adicional -->
+  <link rel="canonical" href="https://imobiliaria-gerais.vercel.app/lumy-cajamar.html" />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="Imobiliária Gerais" />
+  <meta property="og:url" content="https://imobiliaria-gerais.vercel.app/lumy-cajamar.html" />
+  <meta property="og:image" content="https://www.lumy.com.br/wp-content/uploads/2024/06/Rooftop_Cajamar.jpg" />
+  <meta property="og:site_name" content="Imobiliária Gerais" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Lumy Cajamar — Imobiliária Gerais" />
+  <meta name="twitter:description" content="Apartamentos de 2 e 3 quartos com vaga, lazer completo e benefícios do MCMV. Localização privilegiada no Polvilho, em frente ao Ginásio Municipal." />
+  <meta name="twitter:image" content="https://www.lumy.com.br/wp-content/uploads/2024/06/Rooftop_Cajamar.jpg" />
+
+  <!-- Preload da imagem do hero para melhor LCP -->
+  <link rel="preload" as="image" href="https://www.lumy.com.br/wp-content/uploads/2024/06/Rooftop_Cajamar.jpg" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --red-minas:#C0362C;
+      --red-dark:#8F2720;
+      --cream:#F7F4F2;
+      --ink:#403B3B;
+      --muted:#7A7373;
+      --gold:#D9A441;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --ease-out:cubic-bezier(.22,.61,.36,1);
+      --dur-s:160ms;
+      --dur-m:300ms;
+      --dur-l:600ms;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      color:var(--ink);
+      background: radial-gradient(1200px 1200px at 10% 10%, #fff 0%, var(--cream) 100%);
+    }
+
+    img{max-width:100%; height:auto; display:block}
+    .wrap{ min-height:100dvh; display:grid; place-items:center; padding: clamp(16px, 3.8vw, 32px); padding-top: calc(clamp(16px, 3.8vw, 32px) + env(safe-area-inset-top, 0px)); padding-bottom: calc(clamp(16px, 3.8vw, 32px) + env(safe-area-inset-bottom, 0px)) }
+    .card{
+      width:min(980px, 100%);
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:clamp(16px, 4vw, 48px);
+      position:relative; overflow:hidden; isolation:isolate;
+      opacity:0; transform:translate3d(0,8px,0);
+      transition:opacity var(--dur-l) var(--ease-out), transform var(--dur-l) var(--ease-out);
+      will-change: opacity, transform;
+    }
+    .card::after{
+      content:""; position:absolute; inset:auto -10% -30% auto; width:420px; height:420px;
+      background:radial-gradient(closest-side, rgba(192,54,44,.12), transparent 70%);
+      transform:rotate(12deg); z-index:-1;
+    }
+
+    .brand{ display:flex; align-items:center; gap:14px }
+    .logo{ width:56px; height:56px; border-radius:16px; display:grid; place-items:center; box-shadow:0 10px 20px rgba(192,54,44,.20) }
+    .logo img{ width:36px; height:36px; object-fit:contain }
+    .brand h1{ font-size:clamp(20px, 2.2vw, 28px); margin:0; letter-spacing:.3px; font-weight:800; color:var(--ink) }
+    .brand small{ display:block; color:var(--muted); font-weight:600; margin-top:2px }
+
+    .hero{ margin-top:24px; display:grid; gap:14px }
+    /* Hero com imagem e overlay escuro */
+    .hero-banner{ position:relative; border-radius:var(--radius); overflow:hidden; min-height:clamp(280px, 62vh, 420px); box-shadow:var(--shadow) }
+    .hero-banner .bg{ position:absolute; inset:0; background-image:url('https://www.lumy.com.br/wp-content/uploads/2024/06/Rooftop_Cajamar.jpg'); background-size:cover; background-position:center; filter:saturate(1.05) contrast(1.02); opacity:0; transition:opacity var(--dur-l) var(--ease-out) }
+    .hero-banner::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.55) 70%); }
+    .hero-content{ position:relative; z-index:1; color:#fff; padding:clamp(18px, 6vw, 40px); display:grid; gap:10px; align-content:end; min-height:clamp(280px, 62vh, 420px) }
+    .hero-content .headline{ color:#fff }
+    .hero-content .sub{ color:#F3F3F3 }
+    .hero-content .seal{ background:#fff }
+    .headline{ font-size:clamp(22px, 4.2vw, 44px); line-height:1.08; margin:0; font-weight:800; letter-spacing:-.3px }
+    .sub{ font-size:clamp(15px, 2.6vw, 20px); color:#544E4E; margin:6px 0 0 0 }
+    .seal{ display:inline-flex; align-items:center; gap:10px; border:1px solid #E8E2E2; border-radius:999px; padding:8px 14px; background:#fff; width:max-content; margin-top:8px; box-shadow: var(--shadow) }
+    .dot{ width:8px; height:8px; border-radius:999px; background:var(--gold) }
+    .seal span{ font-size:14px; color:#5a5454; font-weight:700 }
+
+    .cta{ margin-top:22px; display:flex; flex-wrap:wrap; gap:12px }
+    .btn{ --bg: var(--red-minas); --fg: #fff; background: var(--bg); color:var(--fg); border:none; border-radius:14px; padding:14px 18px; font-weight:800; letter-spacing:.2px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:10px; box-shadow:0 12px 24px rgba(192,54,44,.24); transition: transform var(--dur-s) var(--ease-out), filter var(--dur-m) var(--ease-out), box-shadow var(--dur-m) var(--ease-out); will-change: transform, filter }
+    .btn:hover{ transform: translateY(-1px); filter: saturate(1.06) brightness(1.02); box-shadow:0 16px 28px rgba(192,54,44,.26) }
+    .btn:active{ transform: translateY(0) scale(.99) }
+    .btn.secondary{ --bg:#ffffff; --fg:var(--red-minas); border:1px solid #E8E2E2; box-shadow:var(--shadow) }
+    .btn svg{ width:18px; height:18px; fill:currentColor }
+
+    .notify{ margin-top:16px; display:flex; gap:10px; flex-wrap:wrap }
+    .input{ flex:1 1 260px; min-width:220px; border:1px solid #E8E2E2; border-radius:12px; padding:12px 14px; font-size:16px; outline:0 }
+
+    /* Carrossel acessível de imagens */
+    .carousel{ margin-top:18px; position:relative; border-radius:0; box-shadow:var(--shadow); overflow:hidden;
+      /* full-bleed dentro do card */
+      margin-left: calc(-1 * clamp(16px, 4vw, 48px));
+      margin-right: calc(-1 * clamp(16px, 4vw, 48px));
+      width: calc(100% + 2 * clamp(16px, 4vw, 48px));
+    }
+    .slides{ display:flex; width:100%; height:auto; will-change: transform; transition: transform var(--dur-m) var(--ease-out) }
+    .slide{ flex:0 0 100%; position:relative; display:grid; place-items:center; background:#fff }
+    .slide img{ width:100%; height:auto; object-fit:contain; object-position:center; display:block }
+    .carousel-btn{ position:absolute; top:50%; transform:translateY(-50%); z-index:2; background:#fff; color:var(--ink); border:1px solid #E8E2E2; border-radius:999px; box-shadow:var(--shadow); padding:8px 10px; display:inline-flex; align-items:center; gap:8px; cursor:pointer }
+    .carousel-btn:hover{ filter:saturate(1.06) }
+    .carousel-btn.prev{ left:10px }
+    .carousel-btn.next{ right:10px }
+    .pager{ position:absolute; left:50%; bottom:10px; transform:translateX(-50%); display:flex; gap:8px; z-index:2 }
+    .pager-dot{ width:8px; height:8px; border-radius:999px; background:#D9D2D2; box-shadow:0 2px 6px rgba(0,0,0,.12) }
+    .pager-dot[aria-selected="true"]{ background:var(--red-minas) }
+
+    /* Copy em preto para maior contraste conforme solicitado */
+    .benefits{ color:#000; list-style:none; margin:12px 0 0; padding:0 }
+    .benefits li{ position:relative; padding-left:24px; margin:6px 0 }
+    .benefits li::before{ content:"✔️"; position:absolute; left:0; top:0; line-height:1 }
+    .copy{ color:#000 }
+    .details{ color:#000; list-style:none; margin:10px 0 0; padding:0 }
+    .details li{ position:relative; padding-left:24px; margin:6px 0 }
+    .details li.icon-money::before{ content:"💰"; position:absolute; left:0; top:0 }
+    .details li.icon-doc::before{ content:"📑"; position:absolute; left:0; top:0 }
+    .slide figcaption{ color:var(--muted); font-size:14px; text-align:center; margin:10px clamp(12px, 3.2vw, 16px) 18px }
+
+    .foot{ margin-top:28px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; color:var(--muted); font-size:14px }
+    .foot-logo{ height:32px }
+    .tagline{ color:#6A6262; font-weight:800; letter-spacing:.3px; display:flex; align-items:center; gap:8px }
+    .tagline .heart{ width:10px; height:10px; border-radius:50%; background:var(--red-minas); box-shadow:0 0 0 3px rgba(192,54,44,.18) }
+
+    a:focus-visible, button:focus-visible, input:focus-visible{ outline:3px solid rgba(217,164,65,.6); outline-offset:2px }
+    /* revelar em scroll */
+    .reveal{ opacity:0; transform:translate3d(0,10px,0); will-change: opacity, transform; transition: opacity var(--dur-l) var(--ease-out), transform var(--dur-l) var(--ease-out) }
+    .reveal.is-visible{ opacity:1; transform:translate3d(0,0,0) }
+
+    /* acessibilidade: reduzir movimento */
+    @media (prefers-reduced-motion: reduce){
+      .btn, .card, .photo, .reveal, .hero-banner .bg{ transition:none !important; transform:none !important; animation:none !important }
+    }
+
+    /* responsivo iPhone 14 (390px de largura) */
+    @media (max-width:430px){
+      .wrap{ padding:16px }
+      .brand h1{ font-size:22px }
+      .hero-content{ padding:20px }
+      .headline{ font-size:24px }
+      .sub{ font-size:15px }
+      .cta{ gap:10px }
+      .btn{ padding:12px 16px }
+      .gallery{ grid-template-columns:1fr }
+    }
+    @media (orientation: landscape){
+      .hero-banner, .hero-content{ min-height:clamp(240px, 60vh, 380px) }
+      .cta{ flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch }
+      .notify{ flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch }
+    }
+    @media (max-width:640px){ .slides{ height:auto } }
+    @media (max-width:560px){ .foot{ flex-direction:column; align-items:flex-start } }
+
+    /* reduzir efeitos em dispositivos sem hover */
+    @media (hover:none){ .btn{ transition:none } }
+    /* Amenities Section */
+    .amenities { margin: clamp(24px, 4vw, 48px) 0; }
+    .amenities h2 { font-size: clamp(20px, 3.4vw, 28px); margin: 0 0 12px 0; }
+    .amenities-intro { color: #6b7280; margin-bottom: clamp(16px, 3vw, 24px); }
+    .amenities-grid { display: grid; grid-template-columns: 1fr; gap: clamp(12px, 2.5vw, 20px); }
+    @media (min-width: 640px) { .amenities-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .amenities-grid { grid-template-columns: repeat(3, 1fr); } }
+    .amenity-card { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06); display: flex; flex-direction: column; }
+    /* Sem imagens por enquanto: ocultar mídia para manter foco no conteúdo */
+    .amenity-media { display: none !important; }
+    .amenity-media.no-image::after { content: "Foto em breve"; position: absolute; inset: 0; display: grid; place-items: center; color: #6b7280; font-size: clamp(14px, 2.8vw, 16px); }
+    .amenity-body { padding: clamp(12px, 2.8vw, 16px); }
+    .amenity-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .amenity-icon { color: #0ea5e9; display: inline-flex; }
+    .amenity-title { font-size: clamp(16px, 3vw, 18px); margin: 0; }
+    .amenity-desc { color: #374151; margin: 4px 0 0; }
+    @media (prefers-reduced-motion: no-preference) { .amenity-card { transition: transform 200ms ease, box-shadow 200ms ease; will-change: transform; } .amenity-card:hover { transform: translateY(-2px); box-shadow: 0 2px 6px rgba(0,0,0,0.06), 0 14px 28px rgba(0,0,0,0.08); } }
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <section class="card" aria-labelledby="title">
+      <header class="brand" aria-label="Identidade">
+        <div class="logo" aria-hidden="true">
+          <img src="logotipo.png" alt="Imobiliária Gerais">
+        </div>
+        <div>
+          <h1 id="title">Imobiliária Gerais</h1>
+          <small>Lumy Cajamar — lançamento</small>
+        </div>
+      </header>
+
+      <div class="hero">
+        <div class="hero-banner reveal" aria-label="Hero com imagem do empreendimento">
+          <div class="bg" aria-hidden="true"></div>
+          <div class="hero-content">
+            <p class="seal" aria-label="Selo de curadoria e credibilidade">
+              <span class="dot" aria-hidden="true"></span>
+              <span>Curadoria Imobiliária Gerais — <strong>Dr. Juscelino Neto</strong></span>
+            </p>
+            <h2 class="headline">Lumy Cajamar: seu novo lar no Polvilho</h2>
+            <p class="sub">
+              Apartamentos de 2 e 3 quartos com vaga, lazer completo e benefícios do Minha Casa Minha Vida — em frente ao Ginásio Municipal, no Polvilho. Preço diferenciado e condições especiais.
+            </p>
+          </div>
+        </div>
+
+        <!-- Copy integrada com benefícios e condições -->
+        <ul class="benefits reveal">
+          <li>Apartamentos de 2 e 3 dormitórios</li>
+          <li>39,33m² a 48,41m²</li>
+          <li>Sacada privativa</li>
+          <li>Vaga de garagem</li>
+          <li>Rooftop com lazer completo</li>
+        </ul>
+
+        <p class="copy reveal" style="margin-top:10px">
+          O novo empreendimento que une conforto, lazer e condições facilitadas para você conquistar seu lar.
+        </p>
+        <ul class="details reveal">
+          <li class="icon-money">Financiamento pela Caixa dentro do programa Minha Casa Minha Vida</li>
+          <li class="icon-doc">Parcelamento direto com a construtora: Ato + período de obra (podendo incluir anuais)</li>
+        </ul>
+        <p class="copy reveal">
+          📍 Localização estratégica em Cajamar, ideal para quem busca qualidade de vida e praticidade.
+        </p>
+
+        <section class="carousel reveal" aria-label="Galeria do empreendimento" role="region">
+          <button class="carousel-btn prev" type="button" aria-label="Imagem anterior">‹</button>
+          <div class="slides" role="list">
+            <figure class="slide" role="listitem">
+              <img src="https://www.lumy.com.br/wp-content/uploads/2024/06/Bloco_Cajamar.jpg" alt="Fachada do empreendimento Lumy Cajamar" loading="lazy">
+              <figcaption>Fachada do empreendimento Lumy Cajamar</figcaption>
+            </figure>
+            <figure class="slide" role="listitem">
+              <img src="https://www.lumy.com.br/wp-content/uploads/2024/06/Rooftop_Cajamar.jpg" alt="Rooftop e área de lazer do Lumy Cajamar" loading="lazy">
+              <figcaption>Rooftop e área de lazer do Lumy Cajamar</figcaption>
+            </figure>
+          </div>
+          <button class="carousel-btn next" type="button" aria-label="Próxima imagem">›</button>
+          <div class="pager" role="tablist" aria-label="Navegação da galeria">
+            <button class="pager-dot" role="tab" aria-selected="true" aria-label="Imagem 1"></button>
+            <button class="pager-dot" role="tab" aria-selected="false" aria-label="Imagem 2"></button>
+          </div>
+        </section>
+
+        <section class="amenities reveal" aria-labelledby="amenities-title">
+          <h2 id="amenities-title">Comodidades do Condomínio</h2>
+          <p class="amenities-intro copy">Conheça os espaços pensados para lazer, bem-estar e conveniência dos moradores. Cada área é equipada e planejada para oferecer experiências de alto padrão.</p>
+          <div class="amenities-grid">
+            <article class="amenity-card" aria-label="Piscina">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Área de lazer com piscina adulto e infantil" src="https://via.placeholder.com/1200x800?text=Piscina" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M4 6c0-1.1.9-2 2-2s2 .9 2 2v1h8V6c0-1.1.9-2 2-2s2 .9 2 2v12H4V6zm2 10c1.2-.8 2.8-.8 4 0s2.8.8 4 0 2.8-.8 4 0V9H6v7z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Piscina</h3>
+                </div>
+                <p class="amenity-desc">Área de lazer com piscina adulto e infantil, tratamento profissional e espaço para descanso.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Vaga de Garagem">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Vagas cobertas e numeradas com segurança 24h" src="https://via.placeholder.com/1200x800?text=Garagem" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M5 11l2-4h10l2 4v6h-2v-2H7v2H5v-6zm3.5 0h7L14 9H10l-1.5 2zM7 16h10v-3H7v3z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Vaga de Garagem</h3>
+                </div>
+                <p class="amenity-desc">Vagas cobertas e numeradas com sistema de segurança 24h.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Churrasqueira">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Área gourmet com churrasqueiras profissionais" src="https://via.placeholder.com/1200x800?text=Churrasqueira" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M7 3h10v2H7V3zm1 4h8l1 5H7l1-5zm-3 7h14v2H5v-2zm3 3h8v2H8v-2z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Churrasqueira</h3>
+                </div>
+                <p class="amenity-desc">Área gourmet completa com churrasqueiras profissionais e mobiliário premium.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Academia">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Espaço fitness equipado" src="https://via.placeholder.com/1200x800?text=Academia" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M3 10h3v4H3v-4zm4 1h2v2H7v-2zm8 0h2v2h-2v-2zm10 3h-3v-4h3v4zm-7-4h3v4h-3v-4zm-6 0h4v4H6v-4z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Academia</h3>
+                </div>
+                <p class="amenity-desc">Espaço fitness equipado com aparelhos de última geração e instrutor disponível.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Fitness Outdoor">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Área ao ar livre para exercícios" src="https://via.placeholder.com/1200x800?text=Fitness+Outdoor" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M4 7h2v10H4V7zm14 0h2v10h-2V7zM9 10h6v4H9v-4z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Fitness Outdoor</h3>
+                </div>
+                <p class="amenity-desc">Área ao ar livre com equipamentos para exercícios funcionais.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Pista de Caminhada">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Trilha pavimentada e iluminada" src="https://via.placeholder.com/1200x800?text=Pista+de+Caminhada" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M4 18c4-2 8-2 12 0l4 2v-2l-4-2c-4-2-8-2-12 0L2 16v2l2 0zM6 6l3 1-1 3-3-1 1-3zm9 2l3 1-1 3-3-1 1-3z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Pista de Caminhada</h3>
+                </div>
+                <p class="amenity-desc">Trilha pavimentada e iluminada com 1km de extensão em área arborizada.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Spa">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Complexo de bem-estar com hidromassagem e sauna" src="https://via.placeholder.com/1200x800?text=Spa" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M12 3c2 2 3 4 3 6s-1 4-3 6c-2-2-3-4-3-6s1-4 3-6zm-7 14h14v2H5v-2z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Spa</h3>
+                </div>
+                <p class="amenity-desc">Complexo de bem-estar com hidromassagem, sauna e massagista profissional.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Playground">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Parque infantil com piso emborrachado" src="https://via.placeholder.com/1200x800?text=Playground" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M5 4h2v12H5V4zm12 0h2v12h-2V4zM8 10h8v2H8v-2z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Playground</h3>
+                </div>
+                <p class="amenity-desc">Parque infantil com brinquedos seguros e piso emborrachado.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Salão de Festas">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Ambiente climatizado para eventos" src="https://via.placeholder.com/1200x800?text=Sal%C3%A3o+de+Festas" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M12 3c3 0 5 2 5 5s-2 6-5 6-5-3-5-6 2-5 5-5zm0 12l-2 3h4l-2-3z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Salão de Festas</h3>
+                </div>
+                <p class="amenity-desc">Ambiente climatizado com cozinha completa e capacidade para 50 pessoas.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Espaço Gourmet">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Área premium com cozinha profissional" src="https://via.placeholder.com/1200x800?text=Espa%C3%A7o+Gourmet" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M6 9c0-2.2 1.8-4 4-4h4c2.2 0 4 1.8 4 4-1.5 0-2.7 1.1-3 2.5H9C8.7 10.1 7.5 9 6 9zm3 5h6v2H9v-2zm-1 3h8v2H8v-2z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Espaço Gourmet</h3>
+                </div>
+                <p class="amenity-desc">Área premium com cozinha profissional e vista panorâmica.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Cinema">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Sala home theater" src="https://via.placeholder.com/1200x800?text=Cinema" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M4 4h12l2 4H6l-2-4zm2 6h14v10H6V10z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Cinema</h3>
+                </div>
+                <p class="amenity-desc">Sala home theater com poltronas reclináveis e som surround.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Sauna">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Sauna seca e úmida" src="https://via.placeholder.com/1200x800?text=Sauna" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M6 18c2-1 2-3 0-4s-2-3 0-4m6 8c2-1 2-3 0-4s-2-3 0-4m6 8c2-1 2-3 0-4s-2-3 0-4" stroke="currentColor" fill="none" stroke-width="2"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Sauna</h3>
+                </div>
+                <p class="amenity-desc">Seca e úmida com controle de temperatura digital.</p>
+              </div>
+            </article>
+
+            <article class="amenity-card" aria-label="Pet Place">
+              <div class="amenity-media">
+                <img loading="lazy" alt="Parque canino completo" src="https://via.placeholder.com/1200x800?text=Pet+Place" />
+              </div>
+              <div class="amenity-body">
+                <div class="amenity-header">
+                  <span class="amenity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" focusable="false"><path d="M7 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm4-2a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm6 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-5 8c-3 0-4-2-4-3s1-3 4-3 4 2 4 3-1 3-4 3z"/></svg>
+                  </span>
+                  <h3 class="amenity-title">Pet Place</h3>
+                </div>
+                <p class="amenity-desc">Parque canino completo com obstáculos e área de higienização.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <div class="cta" role="group" aria-label="Grupo exclusivo no WhatsApp">
+          <a class="btn" href="https://chat.whatsapp.com/ErZhyKzbG795RmWVLXFaMB?mode=wwt" target="_blank" rel="noopener">
+            <!-- Whatsapp -->
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.14 1.6 5.94L0 24l6.2-1.62A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 21.6c-2.04 0-4.04-.55-5.8-1.6l-.42-.25-3.45.9.92-3.36-.27-.44A9.58 9.58 0 0 1 2.4 12C2.4 6.68 6.68 2.4 12 2.4c2.56 0 4.96 1 6.77 2.83A9.53 9.53 0 0 1 21.6 12c0 5.32-4.28 9.6-9.6 9.6zm5.2-6.8c-.28-.14-1.65-.81-1.9-.9-.26-.1-.45-.14-.64.14-.19.27-.74.9-.9 1.08-.17.19-.33.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.4-1.65-1.57-1.92-.16-.27-.02-.42.12-.55.12-.12.27-.33.4-.5.14-.17.18-.28.27-.47.1-.2.05-.37-.02-.52-.07-.14-.64-1.55-.88-2.12-.23-.56-.47-.48-.64-.49l-.54-.01c-.2 0-.52.08-.79.37-.27.28-1.03 1-1.03 2.44 0 1.44 1.05 2.83 1.2 3.02.14.19 2.07 3.15 5.02 4.41.7.3 1.25.48 1.67.61.7.22 1.34.19 1.85.12.57-.09 1.75-.72 2-1.42.25-.7.25-1.3.17-1.42-.07-.12-.26-.2-.54-.34z"/></svg>
+            Entrar no grupo exclusivo no WhatsApp
+          </a>
+        </div>
+
+      </div>
+
+      <footer class="foot" role="contentinfo">
+        <div class="tagline"><span class="heart" aria-hidden="true"></span> A confiança mora aqui.</div>
+        <div>© <span id="y"></span> Imobiliária Gerais • Lançamento Lumy Cajamar</div>
+        <img class="foot-logo" src="logo.png" alt="Imobiliária Gerais">
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // ano dinâmico no rodapé
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // revelar suave ao carregar/rolar (IntersectionObserver)
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function revealOnScroll(){
+      if(prefersReduced) {
+        document.documentElement.style.scrollBehavior = 'auto';
+        document.querySelectorAll('.reveal').forEach(el=> el.classList.add('is-visible'));
+        const bg = document.querySelector('.hero-banner .bg');
+        if(bg) bg.style.opacity = 1;
+        const card = document.querySelector('.card');
+        card.style.opacity = 1; card.style.transform = 'translate3d(0,0,0)';
+        return;
+      }
+      const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('is-visible');
+            if(entry.target.classList.contains('hero-banner')){
+              const bg = entry.target.querySelector('.bg');
+              if(bg) bg.style.opacity = 1;
+            }
+          }
+        })
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+      document.querySelectorAll('.reveal').forEach(el=> observer.observe(el));
+
+      // fade de entrada do card
+      const card = document.querySelector('.card');
+      requestAnimationFrame(()=>{
+        card.style.opacity = 1;
+        card.style.transform = 'translate3d(0,0,0)';
+      });
+
+      // carrossel acessível e performático
+      const carousel = document.querySelector('.carousel');
+      if(carousel){
+        const track = carousel.querySelector('.slides');
+        const slides = Array.from(carousel.querySelectorAll('.slide'));
+        const prev = carousel.querySelector('.carousel-btn.prev');
+        const next = carousel.querySelector('.carousel-btn.next');
+        const dots = Array.from(carousel.querySelectorAll('.pager-dot'));
+        let index = 0;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(reduce){ track.style.transition = 'none'; }
+
+        function update(){
+          const x = -index * 100;
+          track.style.transform = `translate3d(${x}%,0,0)`;
+          slides.forEach((s, i)=>{
+            const hide = i !== index;
+            s.setAttribute('aria-hidden', hide);
+            s.tabIndex = hide ? -1 : 0;
+          });
+          dots.forEach((d, i)=> d.setAttribute('aria-selected', String(i === index)));
+        }
+        function go(delta){
+          index = (index + delta + slides.length) % slides.length;
+          update();
+        }
+        prev.addEventListener('click', ()=> go(-1));
+        next.addEventListener('click', ()=> go(1));
+        dots.forEach((d, i)=> d.addEventListener('click', ()=>{ index = i; update(); }));
+
+        // teclado: setas esquerda/direita
+        carousel.addEventListener('keydown', (e)=>{
+          if(e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+          if(e.key === 'ArrowRight'){ e.preventDefault(); go(1); }
+        });
+
+        // gesto de swipe simples
+        let startX = 0, dx = 0, dragging = false;
+        track.addEventListener('touchstart', (e)=>{ dragging = true; startX = e.touches[0].clientX; dx = 0; }, {passive:true});
+        track.addEventListener('touchmove', (e)=>{ if(!dragging) return; dx = e.touches[0].clientX - startX; }, {passive:true});
+        track.addEventListener('touchend', ()=>{
+          if(!dragging) return; dragging = false;
+          const threshold = 32; // gesto curto, responsivo
+          if(Math.abs(dx) > threshold){ go(dx < 0 ? 1 : -1); }
+        }, {passive:true});
+
+        // iniciar estado
+        update();
+      }
+    }
+    revealOnScroll();
+
+    // Sem imagens nas comodidades por enquanto — nada a fazer aqui.
+  </script>
+</body>
+</html>
