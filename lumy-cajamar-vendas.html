@@ -29,28 +29,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
+    /* ===== VARIÁVEIS CSS ===== */
     :root{
+      /* Cores principais */
       --red-minas:#C0362C;
       --red-dark:#8F2720;
       --cream:#F7F4F2;
       --ink:#403B3B;
       --muted:#7A7373;
       --gold:#D9A441;
+      
+      /* Layout e espaçamento */
       --radius:18px;
       --shadow:0 10px 30px rgba(0,0,0,.08);
+      --maxw:1080px;
+      
+      /* Animações */
       --ease-out:cubic-bezier(.22,.61,.36,1);
       --dur-s:160ms;
       --dur-m:300ms;
       --dur-l:600ms;
-      --maxw:1080px;
     }
+    
+    /* ===== RESET E BASE ===== */
     *{box-sizing:border-box}
     html,body{height:100%}
     html{scroll-behavior:smooth}
     body{margin:0;font-family:"Nunito",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--cream)}
     a{color:var(--red-minas);text-decoration:none}
     img{max-width:100%;display:block}
+    
+    /* ===== LAYOUT GERAL ===== */
     .container{max-width:var(--maxw);margin:0 auto;padding:24px}
+    
+    /* ===== COMPONENTES REUTILIZÁVEIS ===== */
     .hero{position:relative;background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.35)), url('https://www.lumy.com.br/wp-content/uploads/2024/06/Rooftop_Cajamar.jpg') center/cover no-repeat;min-height:52vh;display:flex;align-items:flex-end;border-bottom-left-radius:var(--radius);border-bottom-right-radius:var(--radius);box-shadow:var(--shadow)}
     .hero .content{padding:32px;color:#fff}
     .hero h1{margin:0;font-weight:800;letter-spacing:.2px;font-size:clamp(28px,5vw,42px)}
@@ -151,19 +163,107 @@
       .location-highlights{grid-template-columns:1fr}
       .highlight-item{padding:12px}
     }
+    
+    /* Header de navegação */
+    .navbar{position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(192,54,44,.1);z-index:1000;transition:all var(--dur-m) var(--ease-out);will-change:transform,background-color}
+    .navbar.scrolled{background:rgba(255,255,255,.98);box-shadow:0 2px 20px rgba(0,0,0,.1)}
+    .nav-container{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:70px}
+    .nav-logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;color:var(--red-minas);text-decoration:none}
+    .nav-logo img{width:32px;height:32px;border-radius:6px;object-fit:contain;display:block}
+    .nav-menu{display:flex;align-items:center;gap:32px;list-style:none;margin:0;padding:0}
+    .nav-menu a{color:var(--ink);font-weight:600;font-size:15px;transition:color var(--dur-s) var(--ease-out);position:relative}
+    .nav-menu a:hover{color:var(--red-minas)}
+    .nav-menu a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--red-minas);transition:width var(--dur-m) var(--ease-out)}
+    .nav-menu a:hover::after{width:100%}
+    .nav-cta{display:flex;align-items:center;gap:12px}
+    .nav-toggle{display:none;background:none;border:none;font-size:24px;color:var(--ink);cursor:pointer;padding:8px}
+    
+    /* Menu mobile */
+    @media(max-width:768px){
+      .nav-menu{position:fixed;top:70px;left:0;right:0;background:#fff;flex-direction:column;padding:20px 0;box-shadow:0 4px 20px rgba(0,0,0,.1);transform:translateY(-100%);opacity:0;visibility:hidden;transition:all var(--dur-m) var(--ease-out)}
+      .nav-menu.active{transform:translateY(0);opacity:1;visibility:visible}
+      .nav-menu li{width:100%;text-align:center;padding:8px 0}
+      .nav-toggle{display:block}
+      .nav-cta .btn{display:none}
+    }
+    
+    /* Hero section corrigido */
+    .hero-section{position:relative;background:linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.3)), url('https://www.lumy.com.br/wp-content/uploads/2024/06/Rooftop_Cajamar.jpg') center/cover no-repeat;min-height:100vh;display:flex;align-items:center;justify-content:center;margin-top:70px;animation:heroFadeIn var(--dur-l) var(--ease-out)}
+    .hero-content{text-align:center;color:#fff;max-width:800px;padding:40px 24px;animation:heroSlideUp var(--dur-l) var(--ease-out) 0.3s both}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:8px 16px;font-size:14px;font-weight:600;margin-bottom:24px;animation:heroSlideUp var(--dur-l) var(--ease-out) 0.6s both}
+    .hero-title{margin:0;font-weight:800;letter-spacing:.2px;font-size:clamp(32px,6vw,56px);line-height:1.1;margin-bottom:20px;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+    .hero-subtitle{margin:0;font-size:clamp(18px,2.5vw,24px);opacity:.95;line-height:1.4;margin-bottom:32px;text-shadow:0 1px 5px rgba(0,0,0,.2)}
+    .hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:heroSlideUp var(--dur-l) var(--ease-out) 0.9s both}
+    
+    /* Animações do hero */
+    @keyframes heroFadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes heroSlideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    
+    /* Ajustes responsivos do hero */
+    @media(max-width:1024px){
+      .hero-section{min-height:90vh}
+      .hero-content{padding:36px 28px}
+    }
+    
+    @media(max-width:768px){
+      .hero-section{min-height:80vh;margin-top:70px}
+      .hero-content{padding:32px 20px}
+      .hero-cta{flex-direction:column;align-items:center}
+      .hero-cta .btn{width:100%;max-width:280px;justify-content:center}
+      .hero-badge{font-size:13px;padding:6px 14px}
+    }
+    
+    @media(max-width:320px){
+      .hero-section{min-height:75vh}
+      .hero-content{padding:24px 16px}
+      .hero-badge{font-size:12px;padding:5px 12px}
+      .nav-container{padding:0 16px}
+    }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="content container">
-      <h1>Lumy Cajamar — um novo capítulo para quem busca viver com propósito</h1>
-      <p>Mais do que um empreendimento. Um projeto sólido, inteligente e humano.</p>
-      <div class="cta">
-        <a class="btn primary" href="#contato">Quero saber mais</a>
-        <a class="btn outline" href="#contato">Fale com nossa equipe</a>
+  <!-- Header de Navegação -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <img src="logo.png" alt="Imobiliária Gerais">
+        <div>
+          <div>Imobiliária Gerais</div>
+          <small style="font-size:12px;font-weight:400;color:var(--muted)">Lumy Cajamar</small>
+        </div>
+      </a>
+      
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#galeria">Galeria</a></li>
+          <li><a href="#comodidades">Comodidades</a></li>
+          <li><a href="#localizacao">Localização</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+      
+      <div class="nav-cta">
+        <a class="btn primary" href="#contato">Fale Conosco</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
       </div>
     </div>
   </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>🏢</span>
+        Curadoria Imobiliária Gerais — Dr. Juscelino Neto
+      </div>
+      <h1 class="hero-title">Lumy Cajamar: seu novo lar no Polvilho</h1>
+      <p class="hero-subtitle">Apartamentos de 2 e 3 quartos com vaga, lazer completo e benefícios do Minha Casa Minha Vida — em frente ao Ginásio Municipal, no Polvilho. Preço diferenciado e condições especiais.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="#contato">Quero saber mais</a>
+        <a class="btn outline" href="#galeria">Ver galeria</a>
+      </div>
+    </div>
+  </section>
 
   <main class="container">
     <section id="galeria" class="carousel section" aria-label="Galeria do empreendimento" role="region" data-images="/images/lumy-cajamar/lumy-cajamar-01.png,/images/lumy-cajamar/lumy-cajamar-02.png,/images/lumy-cajamar/lumy-cajamar-03.png,/images/lumy-cajamar/lumy-cajamar-04.png" data-autoplay="5000">
@@ -552,6 +652,84 @@
     © Imobiliária Gerais — Lumy Cajamar
   </footer>
   <script>
+    // Navegação e scroll do header
+    (function(){
+      const navbar = document.getElementById('navbar');
+      const navToggle = document.getElementById('navToggle');
+      const navMenu = document.getElementById('navMenu');
+      
+      // Scroll effect no navbar
+      let lastScrollY = window.scrollY;
+      function handleScroll() {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+        
+        lastScrollY = currentScrollY;
+      }
+      
+      // Toggle menu mobile
+      function toggleMenu() {
+        navMenu.classList.toggle('active');
+        const isActive = navMenu.classList.contains('active');
+        navToggle.textContent = isActive ? '✕' : '☰';
+        navToggle.setAttribute('aria-expanded', isActive);
+      }
+      
+      // Fechar menu ao clicar em link
+      function closeMenu() {
+        navMenu.classList.remove('active');
+        navToggle.textContent = '☰';
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+      
+      // Smooth scroll para links internos
+      function smoothScroll(e) {
+        const href = e.target.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const offsetTop = target.offsetTop - 80; // Compensar altura do navbar
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+            closeMenu();
+          }
+        }
+      }
+      
+      // Event listeners
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      navToggle.addEventListener('click', toggleMenu);
+      
+      // Adicionar smooth scroll a todos os links do menu
+      navMenu.addEventListener('click', smoothScroll);
+      
+      // Fechar menu ao clicar fora
+      document.addEventListener('click', (e) => {
+        if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
+          closeMenu();
+        }
+      });
+      
+      // Fechar menu ao redimensionar janela
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+          closeMenu();
+        }
+      });
+      
+      // Inicializar estado
+      handleScroll();
+    })();
+    
+    // Carrossel de imagens
     (function(){
       try {
         const el = document.getElementById('galeria');
