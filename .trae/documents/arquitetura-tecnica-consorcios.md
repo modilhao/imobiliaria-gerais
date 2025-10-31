@@ -34,72 +34,82 @@ graph TD
 
 ## 2. Technology Description
 
-- **Frontend**: React@18 + TypeScript + TailwindCSS@3 + Vite
-- **Backend**: Supabase (PostgreSQL + Real-time + Auth)
-- **Analytics**: Google Analytics 4 + Meta Pixel + Hotjar
-- **Integração**: WhatsApp Business API + Supabase Edge Functions
-- **Deploy**: Vercel (otimizado para Next.js/React)
+* **Frontend**: React\@18 + TypeScript + TailwindCSS\@3 + Vite
+
+* **Backend**: Supabase (PostgreSQL + Real-time + Auth)
+
+* **Analytics**: Google Analytics 4 + Meta Pixel + Hotjar
+
+* **Integração**: WhatsApp Business API + Supabase Edge Functions
+
+* **Deploy**: Vercel (otimizado para Next.js/React)
 
 ## 3. Route definitions
 
-| Route | Purpose |
-|-------|---------|
-| /consorcios | Página principal de consórcios com todas as seções |
-| /consorcios/simulador | Simulador standalone para campanhas específicas |
-| /consorcios/imoveis | Landing page focada em consórcios de imóveis |
-| /consorcios/veiculos | Landing page focada em consórcios de veículos |
-| /consorcios/servicos | Landing page focada em consórcios de serviços |
-| /consorcios/obrigado | Página de confirmação pós-conversão |
+| Route                 | Purpose                                            |
+| --------------------- | -------------------------------------------------- |
+| /consorcios           | Página principal de consórcios com todas as seções |
+| /consorcios/simulador | Simulador standalone para campanhas específicas    |
+| /consorcios/imoveis   | Landing page focada em consórcios de imóveis       |
+| /consorcios/veiculos  | Landing page focada em consórcios de veículos      |
+| /consorcios/servicos  | Landing page focada em consórcios de serviços      |
+| /consorcios/obrigado  | Página de confirmação pós-conversão                |
 
 ## 4. API definitions
 
 ### 4.1 Core API
 
 **Captura de Leads**
+
 ```
 POST /api/leads
 ```
 
 Request:
-| Param Name | Param Type | isRequired | Description |
-|------------|------------|------------|-------------|
-| nome | string | true | Nome completo do interessado |
-| email | string | true | Email válido para contato |
-| telefone | string | true | Telefone com DDD |
-| tipo_consorcio | enum | true | 'imovel', 'veiculo', 'servico' |
-| valor_desejado | number | false | Valor do bem desejado |
-| prazo_preferido | number | false | Prazo em meses |
-| utm_source | string | false | Origem da campanha |
-| utm_medium | string | false | Meio da campanha |
-| utm_campaign | string | false | Nome da campanha |
+
+| Param Name       | Param Type | isRequired | Description                    |
+| ---------------- | ---------- | ---------- | ------------------------------ |
+| nome             | string     | true       | Nome completo do interessado   |
+| email            | string     | true       | Email válido para contato      |
+| telefone         | string     | true       | Telefone com DDD               |
+| tipo\_consorcio  | enum       | true       | 'imovel', 'veiculo', 'servico' |
+| valor\_desejado  | number     | false      | Valor do bem desejado          |
+| prazo\_preferido | number     | false      | Prazo em meses                 |
+| utm\_source      | string     | false      | Origem da campanha             |
+| utm\_medium      | string     | false      | Meio da campanha               |
+| utm\_campaign    | string     | false      | Nome da campanha               |
 
 Response:
-| Param Name | Param Type | Description |
-|------------|------------|-------------|
-| success | boolean | Status da operação |
-| lead_id | string | ID único do lead gerado |
-| message | string | Mensagem de confirmação |
+
+| Param Name | Param Type | Description             |
+| ---------- | ---------- | ----------------------- |
+| success    | boolean    | Status da operação      |
+| lead\_id   | string     | ID único do lead gerado |
+| message    | string     | Mensagem de confirmação |
 
 **Simulação de Consórcio**
+
 ```
 POST /api/simulacao
 ```
 
 Request:
-| Param Name | Param Type | isRequired | Description |
-|------------|------------|------------|-------------|
-| valor_bem | number | true | Valor do bem desejado |
-| prazo_meses | number | true | Prazo em meses (12-180) |
-| tipo_consorcio | enum | true | Tipo do consórcio |
-| lead_id | string | false | ID do lead associado |
+
+| Param Name      | Param Type | isRequired | Description             |
+| --------------- | ---------- | ---------- | ----------------------- |
+| valor\_bem      | number     | true       | Valor do bem desejado   |
+| prazo\_meses    | number     | true       | Prazo em meses (12-180) |
+| tipo\_consorcio | enum       | true       | Tipo do consórcio       |
+| lead\_id        | string     | false      | ID do lead associado    |
 
 Response:
-| Param Name | Param Type | Description |
-|------------|------------|-------------|
-| parcela_mensal | number | Valor da parcela mensal |
-| taxa_administracao | number | Taxa de administração (%) |
-| valor_total | number | Valor total do plano |
-| economia_vs_financiamento | number | Economia comparada ao financiamento |
+
+| Param Name                  | Param Type | Description                         |
+| --------------------------- | ---------- | ----------------------------------- |
+| parcela\_mensal             | number     | Valor da parcela mensal             |
+| taxa\_administracao         | number     | Taxa de administração (%)           |
+| valor\_total                | number     | Valor total do plano                |
+| economia\_vs\_financiamento | number     | Economia comparada ao financiamento |
 
 ## 5. Server architecture diagram
 
@@ -189,6 +199,7 @@ erDiagram
 ### 6.2 Data Definition Language
 
 **Tabela de Leads**
+
 ```sql
 -- create table
 CREATE TABLE leads (
@@ -296,3 +307,4 @@ INSERT INTO campanhas (nome, utm_source, utm_medium, utm_campaign, configuracoes
 ('Campanha Facebook', 'facebook', 'social', 'consorcios_facebook', '{"tipo": "pago", "plataforma": "facebook"}'),
 ('Campanha Email Marketing', 'email', 'email', 'consorcios_newsletter', '{"tipo": "email", "segmento": "base_clientes"});
 ```
+
