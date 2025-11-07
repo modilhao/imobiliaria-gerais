@@ -219,6 +219,40 @@
       .hero-badge{font-size:12px;padding:5px 12px}
       .nav-container{padding:0 16px}
     }
+
+    /* ===== FORMULÁRIO DE CONTATO (LEAD) ===== */
+    .lead-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-top:16px}
+    .form-title{margin:0 0 12px;font-size:22px}
+    .form-subtitle{margin:0 0 18px;color:var(--muted)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:768px){.form-grid{grid-template-columns:1fr}}
+    /* Linha de dois campos (ex.: Data + Horário) alinhados */
+    .form-row-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:768px){.form-row-two{grid-template-columns:1fr}}
+    .form-group{display:flex;flex-direction:column;gap:8px}
+    .form-group label{font-weight:700;color:var(--ink)}
+    .form-group input,.form-group select{appearance:none;-webkit-appearance:none;padding:12px 12px;border:1px solid #ddd;border-radius:12px;font-size:15px;background:#fff;transition:border var(--dur-s) var(--ease-out), box-shadow var(--dur-s) var(--ease-out)}
+    .form-group input:focus,.form-group select:focus{outline:none;border-color:var(--red-minas);box-shadow:0 0 0 3px rgba(192,54,44,.15)}
+    .helper{font-size:12px;color:var(--muted)}
+    .error{font-size:12px;color:#c62828}
+    .form-actions{display:flex;gap:12px;align-items:center;margin-top:8px;flex-wrap:wrap}
+    .status{font-size:14px;color:var(--muted)}
+    .btn.loading{opacity:.7;pointer-events:none}
+
+    /* Checkboxes linha única */
+    .checkbox-line{display:flex;align-items:flex-start;gap:10px}
+    .checkbox-line input[type="checkbox"]{margin-top:3px}
+
+    /* Modal simples para PDF CAIXA */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:2000}
+    .modal{width:min(920px,92vw);height:min(720px,86vh);background:#fff;border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .modal header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eee}
+    .modal header h3{margin:0;font-size:16px}
+    .modal .modal-body{flex:1}
+    .modal .modal-body iframe{display:block;width:100%;height:100%;border:0}
+    .modal footer{display:flex;gap:10px;justify-content:flex-end;padding:12px 16px;border-top:1px solid #eee}
+    .modal-overlay.is-open{display:flex}
+  </style>
   </style>
 </head>
 <body>
@@ -645,6 +679,128 @@
           <a class="btn" style="background:#25D366;color:#fff;border:1px solid #25D366" href="https://wa.me/5511999444634" target="_blank" rel="noopener noreferrer">Reserve Agora</a>
         </div>
       </div>
+
+      <!-- Formulário abrangente de leads -->
+      <div class="lead-card" aria-labelledby="lead-title">
+        <h3 id="lead-title" class="form-title">Solicitação de Atendimento</h3>
+        <p class="form-subtitle">Preencha os dados abaixo para avançarmos com seu atendimento e pré-análise. Campos marcados como obrigatórios têm validação em tempo real.</p>
+
+        <form id="leadForm" novalidate>
+          <!-- Seção Básica -->
+          <fieldset style="border:none;padding:0;margin:0 0 12px">
+            <legend style="font-weight:800;margin-bottom:10px">Seção Básica</legend>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="fullName">Nome completo *</label>
+                <input id="fullName" name="fullName" type="text" minlength="5" maxlength="100" placeholder="Ex.: Maria de Souza" required />
+                <div class="helper">Mínimo 5 e máximo 100 caracteres.</div>
+                <div class="error" data-error-for="fullName"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="cpf">CPF *</label>
+                <input id="cpf" name="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" required />
+                <div class="helper">Validação com dígitos verificadores.</div>
+                <div class="error" data-error-for="cpf"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="whatsapp">WhatsApp *</label>
+                <input id="whatsapp" name="whatsapp" inputmode="numeric" autocomplete="tel" placeholder="(11) 99999-9999" required />
+                <div class="helper">Informe DDD + número. Aceita 10 ou 11 dígitos.</div>
+                <div class="error" data-error-for="whatsapp"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">E-mail *</label>
+                <input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" required />
+                <div class="helper">Formato padrão de e-mail.</div>
+                <div class="error" data-error-for="email"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="incomeProfile">Perfil de renda *</label>
+                <select id="incomeProfile" name="incomeProfile" required>
+                  <option value="" disabled selected>Selecione</option>
+                  <option>CLT</option>
+                  <option>Autônomo (MEI/Empresário)</option>
+                  <option>Servidor</option>
+                </select>
+                <div class="error" data-error-for="incomeProfile"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="cityUf">Cidade/UF *</label>
+                <input id="cityUf" name="cityUf" list="citiesList" placeholder="Ex.: Cajamar - SP" required />
+                <datalist id="citiesList"></datalist>
+                <div class="helper">Sugestões automáticas via IBGE. Formato: Cidade - UF.</div>
+                <div class="error" data-error-for="cityUf"></div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Seções combinadas em coluna única para alinhamento perfeito -->
+          <!-- Seção Pré-análise -->
+          <fieldset style="border:none;padding:0;margin:8px 0 12px">
+            <legend style="font-weight:800;margin-bottom:10px">Seção Pré-análise</legend>
+            <div class="form-group">
+              <div class="checkbox-line">
+                <input type="checkbox" id="accelerate" name="accelerate" />
+                <label for="accelerate">Quero acelerar minha pré-análise (abrirá termo da CAIXA)</label>
+              </div>
+            </div>
+            <div class="form-row-two">
+              <div class="form-group">
+                <label for="appointmentDate">Data para atendimento no stand</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" />
+                <div class="helper">Selecione a data desejada (exceto domingos).</div>
+              </div>
+              <div class="form-group">
+                <label for="appointmentTime">Horário</label>
+                <input type="time" id="appointmentTime" name="appointmentTime" min="09:00" max="18:00" step="1800" />
+                <div class="helper">Horários comerciais: 09:00 às 18:00 (intervalo de 30min).</div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Seção Consentimentos -->
+          <fieldset style="border:none;padding:0;margin:8px 0 12px">
+            <legend style="font-weight:800;margin-bottom:10px">Seção Consentimentos (LGPD)</legend>
+            <div class="form-group">
+              <div class="checkbox-line">
+                <input type="checkbox" id="lgpdConsent" name="lgpdConsent" required />
+                <label for="lgpdConsent">Autorizo contato por WhatsApp/E-mail para tratar deste atendimento *</label>
+              </div>
+              <div class="error" data-error-for="lgpdConsent"></div>
+              <div class="helper">
+                Consulte nossos <a href="https://imobiliariagerais.com.br/privacidade" target="_blank" rel="noopener">termos de privacidade</a>.
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="submit" id="submitBtn" class="btn primary">Enviar</button>
+            <button type="button" id="saveDraftBtn" class="btn outline">Salvar rascunho</button>
+            <span class="status" id="statusMsg" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal CAIXA PDF -->
+      <div class="modal-overlay" id="preModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal" role="document">
+          <header>
+            <h3 id="modalTitle">Termo/Cartilha CAIXA — Crédito Imobiliário</h3>
+            <button type="button" class="btn outline" id="closeModalBtn">Fechar</button>
+          </header>
+          <div class="modal-body">
+            <iframe src="/docs/Aut.Pesq.CAIXA.pdf" title="Documento CAIXA"></iframe>
+          </div>
+          <footer>
+            <button type="button" class="btn" id="ackTermBtn" style="background:var(--red-minas);color:#fff">Li e compreendo</button>
+          </footer>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -793,6 +949,259 @@
       } catch(err) {
         console.error('Falha ao inicializar carrossel', err);
       }
+    })();
+
+    // Formulário de Lead (validações, máscaras, IBGE, AJAX, storage)
+    (function(){
+      const form = document.getElementById('leadForm');
+      if(!form) return;
+      const statusMsg = document.getElementById('statusMsg');
+      const submitBtn = document.getElementById('submitBtn');
+      const saveDraftBtn = document.getElementById('saveDraftBtn');
+      const preModal = document.getElementById('preModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const ackTermBtn = document.getElementById('ackTermBtn');
+      const accelerate = document.getElementById('accelerate');
+
+      const fields = {
+        fullName: form.querySelector('#fullName'),
+        cpf: form.querySelector('#cpf'),
+        whatsapp: form.querySelector('#whatsapp'),
+        email: form.querySelector('#email'),
+        incomeProfile: form.querySelector('#incomeProfile'),
+        cityUf: form.querySelector('#cityUf'),
+        lgpdConsent: form.querySelector('#lgpdConsent'),
+        appointmentDate: form.querySelector('#appointmentDate'),
+        appointmentTime: form.querySelector('#appointmentTime')
+      };
+
+      const ENDPOINT = 'https://formspree.io/f/xpwkazvy';
+      const DRAFT_KEY = 'leadFormDraftLumyCajamar';
+
+      // Utilidades
+      const onlyDigits = (s) => (s||'').replace(/\D+/g,'');
+      function setError(id, message){
+        const el = form.querySelector(`[data-error-for="${id}"]`);
+        if(el){ el.textContent = message || ''; }
+        const field = fields[id];
+        if(field){ field.setAttribute('aria-invalid', message ? 'true' : 'false'); }
+      }
+      function clearErrors(){ Object.keys(fields).forEach(k=> setError(k, '')); }
+      function setStatus(message, type){
+        statusMsg.textContent = message || '';
+        statusMsg.style.color = type==='error' ? '#c62828' : (type==='success' ? '#2e7d32' : 'var(--muted)');
+      }
+
+      // Máscara CPF e validação de dígitos verificadores
+      function formatCPF(val){
+        const d = onlyDigits(val).slice(0,11);
+        let out = '';
+        if(d.length>0) out = d.slice(0,3);
+        if(d.length>=4) out = `${d.slice(0,3)}.${d.slice(3,6)}`;
+        if(d.length>=7) out = `${d.slice(0,3)}.${d.slice(3,6)}.${d.slice(6,9)}`;
+        if(d.length>=10) out = `${d.slice(0,3)}.${d.slice(3,6)}.${d.slice(6,9)}-${d.slice(9,11)}`;
+        return out;
+      }
+      function cpfIsValid(val){
+        const d = onlyDigits(val);
+        if(d.length!==11) return false;
+        if(/^([0-9])\1{10}$/.test(d)) return false; // todos iguais
+        const calc = (slice) => {
+          let sum = 0; for(let i=0;i<slice;i++){ sum += parseInt(d[i],10) * (slice+1 - i); }
+          const res = (sum * 10) % 11; return res === 10 ? 0 : res;
+        };
+        const dv1 = calc(9);
+        const dv2 = calc(10);
+        return dv1 === parseInt(d[9],10) && dv2 === parseInt(d[10],10);
+      }
+
+      // Máscara WhatsApp (DDD + número)
+      function formatPhone(val){
+        const d = onlyDigits(val).slice(0,11);
+        if(d.length<=2) return `(${d}`;
+        if(d.length<=6) return `(${d.slice(0,2)}) ${d.slice(2)}`;
+        if(d.length<=10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
+        return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7,11)}`; // 11 dígitos
+      }
+      function phoneIsValid(val){
+        const d = onlyDigits(val);
+        if(d.length<10 || d.length>11) return false;
+        const ddd = parseInt(d.slice(0,2),10);
+        if(!(ddd>=11 && ddd<=99)) return false;
+        // Se 11 dígitos, número móvel geralmente inicia com 9
+        if(d.length===11 && d[2] !== '9') return false;
+        return true;
+      }
+
+      // Email simples
+      function emailIsValid(val){
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i; return re.test(String(val||''));
+      }
+
+      // Cidade/UF (formato "Cidade - UF")
+      function cityUfIsValid(val){
+        const s = (val||'').trim();
+        if(!s) return false;
+        const parts = s.split(' - ');
+        return parts.length===2 && parts[0].length>=2 && /^[A-Z]{2}$/.test(parts[1]);
+      }
+
+      // Pré-análise: data não pode ser domingo
+      function dateIsAllowed(iso){
+        if(!iso) return true; // opcional
+        const dt = new Date(iso+'T00:00:00');
+        const dow = dt.getDay(); // 0 domingo
+        return dow !== 0;
+      }
+      function timeIsAllowed(t){
+        if(!t) return true; // opcional
+        const [h,m] = t.split(':').map(Number);
+        const mins = h*60+m; return mins>=540 && mins<=1080; // 09:00–18:00
+      }
+
+      // IBGE cidades
+      async function loadCities(){
+        try{
+          const res = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/municipios?orderBy=nome');
+          const data = await res.json();
+          const listEl = document.getElementById('citiesList');
+          const opts = document.createDocumentFragment();
+          data.forEach(m=>{
+            const uf = m?.microrregiao?.mesorregiao?.UF?.sigla || '';
+            const opt = document.createElement('option');
+            opt.value = `${m.nome} - ${uf}`;
+            opts.appendChild(opt);
+          });
+          listEl.appendChild(opts);
+        }catch(err){ console.warn('Falha ao carregar cidades do IBGE', err); }
+      }
+      loadCities();
+
+      // Restauração de rascunho
+      (function restoreDraft(){
+        try{
+          const raw = localStorage.getItem(DRAFT_KEY);
+          if(!raw) return;
+          const draft = JSON.parse(raw);
+          Object.keys(fields).forEach(k=>{ if(draft[k]) fields[k].value = draft[k]; });
+          setStatus('Rascunho recuperado do armazenamento local.', '');
+        }catch(err){ /* ignore */ }
+      })();
+
+      // Máscaras em tempo real
+      fields.cpf.addEventListener('input', (e)=>{ e.target.value = formatCPF(e.target.value); validateField('cpf'); });
+      fields.whatsapp.addEventListener('input', (e)=>{ e.target.value = formatPhone(e.target.value); validateField('whatsapp'); });
+
+      // Validações em tempo real
+      function validateField(id){
+        const v = (fields[id].value||'').trim();
+        switch(id){
+          case 'fullName':
+            if(v.length<5) return setError(id, 'Informe ao menos 5 caracteres.');
+            if(v.length>100) return setError(id, 'Máximo de 100 caracteres.');
+            return setError(id, '');
+          case 'cpf':
+            if(!cpfIsValid(v)) return setError(id, 'CPF inválido.');
+            return setError(id, '');
+          case 'whatsapp':
+            if(!phoneIsValid(v)) return setError(id, 'WhatsApp inválido (DDD + número).');
+            return setError(id, '');
+          case 'email':
+            if(!emailIsValid(v)) return setError(id, 'E-mail inválido.');
+            return setError(id, '');
+          case 'incomeProfile':
+            if(!v) return setError(id, 'Selecione uma opção.');
+            return setError(id, '');
+          case 'cityUf':
+            if(!cityUfIsValid(v)) return setError(id, 'Use o formato Cidade - UF (ex.: Cajamar - SP).');
+            return setError(id, '');
+          case 'lgpdConsent':
+            if(!fields.lgpdConsent.checked) return setError(id, 'Este consentimento é obrigatório.');
+            return setError(id, '');
+          case 'appointmentDate':
+            if(v && !dateIsAllowed(v)) return setError(id, 'Selecione um dia válido (não aceitamos domingo).');
+            return setError(id, '');
+          case 'appointmentTime':
+            if(v && !timeIsAllowed(v)) return setError(id, 'Horário fora do período comercial.');
+            return setError(id, '');
+        }
+      }
+      Object.keys(fields).forEach(k=>{
+        const el = fields[k];
+        const ev = (k==='email' || k==='incomeProfile') ? 'change' : 'input';
+        el.addEventListener(ev, ()=> validateField(k));
+        el.addEventListener('blur', ()=> validateField(k));
+      });
+
+      // Modal CAIXA
+      function openModal(){ preModal.classList.add('is-open'); preModal.setAttribute('aria-hidden','false'); }
+      function closeModal(){ preModal.classList.remove('is-open'); preModal.setAttribute('aria-hidden','true'); }
+      accelerate.addEventListener('change', (e)=>{ if(e.target.checked) openModal(); });
+      closeModalBtn.addEventListener('click', closeModal);
+      ackTermBtn.addEventListener('click', ()=>{ closeModal(); setStatus('Pré-análise acelerada: termo exibido.', ''); });
+      preModal.addEventListener('click', (e)=>{ if(e.target === preModal) closeModal(); });
+
+      // Salvar rascunho
+      saveDraftBtn.addEventListener('click', ()=>{
+        try{
+          const payload = getPayload();
+          localStorage.setItem(DRAFT_KEY, JSON.stringify(payload));
+          setStatus('Rascunho salvo com sucesso no dispositivo.', 'success');
+        }catch(err){ setStatus('Falha ao salvar rascunho.', 'error'); }
+      });
+
+      function getPayload(){
+        return {
+          fullName: fields.fullName.value.trim(),
+          cpf: onlyDigits(fields.cpf.value),
+          whatsapp: onlyDigits(fields.whatsapp.value),
+          email: fields.email.value.trim(),
+          incomeProfile: fields.incomeProfile.value,
+          cityUf: fields.cityUf.value.trim(),
+          lgpdConsent: fields.lgpdConsent.checked,
+          appointmentDate: fields.appointmentDate.value,
+          appointmentTime: fields.appointmentTime.value,
+          accelerate: accelerate.checked,
+          ts: Date.now()
+        };
+      }
+
+      function validateAll(){
+        clearErrors();
+        const ids = ['fullName','cpf','whatsapp','email','incomeProfile','cityUf','lgpdConsent','appointmentDate','appointmentTime'];
+        let ok = true; ids.forEach(id=>{ validateField(id); const el = form.querySelector(`[data-error-for="${id}"]`); if(el && el.textContent) ok=false; });
+        return ok;
+      }
+
+      async function submitForm(){
+        if(!validateAll()){ setStatus('Verifique os campos destacados e tente novamente.', 'error'); return; }
+        const payload = getPayload();
+        setStatus('Enviando seus dados…', '');
+        submitBtn.classList.add('loading');
+        submitBtn.textContent = 'Enviando…';
+        try{
+          // Envio compatível com Formspree: usar FormData e cabeçalho Accept
+          const fd = new FormData();
+          Object.entries(payload).forEach(([k,v])=>{
+            fd.append(k, typeof v==='boolean' ? (v? 'true' : 'false') : String(v||''));
+          });
+          const res = await fetch(ENDPOINT, { method:'POST', headers:{ 'Accept':'application/json' }, body: fd });
+          if(!res.ok) throw new Error('Falha no envio');
+          const data = await res.json();
+          console.log('Resposta do servidor', data);
+          localStorage.removeItem(DRAFT_KEY);
+          form.reset();
+          setStatus('✅ Dados enviados com sucesso. Em breve entraremos em contato.', 'success');
+        }catch(err){
+          try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(payload)); }catch(e){ /* ignore */ }
+          setStatus('❌ Não foi possível enviar agora. Seus dados foram salvos localmente.', 'error');
+        }finally{
+          submitBtn.classList.remove('loading');
+          submitBtn.textContent = 'Enviar';
+        }
+      }
+
+      form.addEventListener('submit', (e)=>{ e.preventDefault(); submitForm(); });
     })();
   </script>
 </body>

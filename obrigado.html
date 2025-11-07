@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Obrigado — Imobiliária Gerais</title>
+  <meta name="description" content="Obrigado por enviar seus dados. Em breve entraremos em contato." />
+  <link rel="icon" href="/logo.png" />
+  <style>
+    :root{
+      --ink:#2b2b2b;--muted:#6b6b6b;--bg:#f7f4f2;--red-minas:#c0362c;--radius:16px;--shadow:0 10px 25px rgba(0,0,0,.08);
+      --maxw:980px;--dur-s:.15s;--ease-out:cubic-bezier(.22,.61,.36,1);
+    }
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";}
+    .wrap{min-height:100%;display:flex;flex-direction:column}
+    header{padding:18px 20px;display:flex;justify-content:center}
+    header .brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:800}
+    header .brand img{height:28px;width:auto}
+    main{flex:1;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;max-width:var(--maxw);width:100%}
+    .title{margin:0 0 8px;font-size:28px;line-height:1.2}
+    .subtitle{margin:0 0 18px;color:var(--muted);font-size:16px}
+    .divider{height:1px;background:#eee;margin:18px 0}
+    .cta-area{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--red-minas);color:#fff;text-decoration:none;padding:14px 18px;border-radius:12px;font-weight:700;transition:transform var(--dur-s) var(--ease-out), filter var(--dur-s) var(--ease-out)}
+    .btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .note{color:var(--muted);font-size:13px}
+    footer{padding:24px 20px;text-align:center;color:var(--muted);font-size:12px}
+    @media (max-width:720px){ .title{font-size:24px} .card{padding:22px} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/index.html" aria-label="Ir para a página inicial">
+        <img src="/logotipo.png" alt="Imobiliária Gerais" />
+        <span>Imobiliária Gerais</span>
+      </a>
+    </header>
+    <main>
+      <section class="card" aria-label="Mensagem de agradecimento">
+        <h1 class="title">Obrigado! Recebemos suas informações.</h1>
+        <p class="subtitle">Parabéns por avançar na sua pré‑análise de crédito para o Lumy Cajamar. Nosso time vai revisar seus dados e entrar em contato em breve.</p>
+        <div class="divider" role="separator" aria-hidden="true"></div>
+        <div class="cta-area">
+          <a class="btn" href="https://wa.me/5511999444634?text=AUTORIZO%20a%20consulta%20cadastral%20para%20pr%C3%A9-an%C3%A1lise%20de%20cr%C3%A9dito%20(Lumy%20Cajamar).%20Enviar%20formul%C3%A1rio%2FPDF%20por%20favor." target="_blank" rel="noopener" aria-label="Abrir WhatsApp para confirmar autorização">
+            Abrir WhatsApp e confirmar autorização
+          </a>
+          <span class="note">Se preferir, você pode voltar à página inicial e continuar navegando.</span>
+        </div>
+      </section>
+    </main>
+    <footer>
+      © Imobiliária Gerais — Lumy Cajamar
+    </footer>
+  </div>
+</body>
+</html>
