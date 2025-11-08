@@ -242,12 +242,16 @@
     /* Checkboxes linha única */
       .checkbox-line{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid #e5e5e5;border-radius:10px;background:#fafafa;transition:background .2s ease, box-shadow .2s ease, border-color .2s ease; cursor:pointer}
       .checkbox-line:hover{background:#f7f3f2;border-color:#dcdcdc}
-      .checkbox-line:focus-within{box-shadow:0 0 0 3px rgba(190,45,35,.15);border-color:var(--red-minas);background:#fff7f6}
-      .checkbox-line.is-checked{border-color:var(--red-minas);background:#fff7f6}
-      .checkbox-line input[type="checkbox"]{margin-top:3px;accent-color:var(--red-minas);outline:none}
+      .checkbox-line:focus-within{box-shadow:0 0 0 3px rgba(46,125,50,.15);border-color:#2e7d32;background:#e8f5e9}
+      .checkbox-line.is-checked{border-color:#2e7d32;background:#e8f5e9}
+      .checkbox-line input[type="checkbox"]{margin-top:3px;accent-color:#8a8a8a;outline:none}
+      .checkbox-line input[type="checkbox"]:checked{accent-color:#2e7d32}
       .checkbox-line input[type="checkbox"]:focus{outline:2px solid rgba(192,54,44,.25);outline-offset:2px}
       .checkbox-line label{transition:color var(--dur-s) var(--ease-out), font-weight var(--dur-s) var(--ease-out), background .2s ease; border-radius:8px; padding:4px 6px}
-      .checkbox-line label.is-selected{color:var(--red-minas);font-weight:800;background:#ffeceb}
+      .checkbox-line label.is-selected{color:#2e7d32;font-weight:800;background:#e8f5e9}
+      /* Ícone de seleção no início do label */
+      .checkbox-line label::before{content:'';display:inline-block;width:0;height:0}
+      .checkbox-line label.is-selected::before{content:'✅';margin-right:8px;font-size:16px;line-height:1;vertical-align:-2px}
 
     /* Modal simples para PDF CAIXA */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:2000}
