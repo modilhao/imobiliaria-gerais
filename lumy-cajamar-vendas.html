@@ -994,7 +994,12 @@
         lgpdConsent: form.querySelector('#lgpdConsent')
       };
 
-      const ENDPOINT = 'https://formspree.io/f/xpwkazvy';
+      // Usa endpoint seguro em produção; em localhost, usa API direta para testes
+      const BREVO_ENDPOINT = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+        ? 'https://api.brevo.com/v3/contacts'
+        : '/api/brevo-contact';
+      // Chave não deve ser exposta no cliente; deixe vazia e configure via servidor
+      const BREVO_API_KEY = '';
       const DRAFT_KEY = 'leadFormDraftLumyCajamar';
 
       // Utilidades
@@ -1230,23 +1235,72 @@
         submitBtn.classList.add('loading');
         submitBtn.textContent = 'Enviando…';
         try{
-          // Envio compatível com Formspree: usar FormData e cabeçalho Accept
-          const fd = new FormData();
-          Object.entries(payload).forEach(([k,v])=>{
-            fd.append(k, typeof v==='boolean' ? (v? 'true' : 'false') : String(v||''));
+          // Preparar payload para Brevo
+          const fullName = (fields.fullName.value || '').trim();
+          const parts = fullName.split(/\s+/).filter(Boolean);
+          const firstName = parts[0] || '';
+          const lastName = parts.length > 1 ? parts.slice(1).join(' ') : '';
+
+          const brevoPayload = {
+            email: fields.email.value.trim(),
+            attributes: {
+              EMAIL: fields.email.value.trim(),
+              FIRSTNAME: firstName,
+              LASTNAME: lastName,
+              SMS: '+55' + onlyDigits(fields.whatsapp.value),
+              CPF: onlyDigits(fields.cpf.value),
+              RENDA_PERFIL: fields.incomeProfile.value,
+              RENDA_COMPROVACAO: fields.incomeProof.value,
+              RENDA_FAMILIAR: parseBRL(fields.incomeBRL.value).toString(),
+              ACELERAR: !!accelerate.checked
+            },
+            listIds: [5],
+            updateEnabled: true
+          };
+
+          // Enviar para Brevo
+          const headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          };
+          if (BREVO_ENDPOINT.startsWith('https://api.brevo.com') && BREVO_API_KEY) {
+            headers['api-key'] = BREVO_API_KEY;
+          }
+          const response = await fetch(BREVO_ENDPOINT, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(brevoPayload)
           });
-          const res = await fetch(ENDPOINT, { method:'POST', headers:{ 'Accept':'application/json' }, body: fd });
-          if(!res.ok) throw new Error('Falha no envio');
-          const data = await res.json();
-          console.log('Resposta do servidor', data);
+
+          if (!response.ok) {
+            const text = await response.text();
+            let errorData;
+            try { errorData = JSON.parse(text); } catch { errorData = { message: text || 'Erro desconhecido' }; }
+            const msg = errorData.message || `Erro ${response.status}`;
+            throw new Error(msg);
+          }
+
+          // Sucesso
           localStorage.removeItem(DRAFT_KEY);
           form.reset();
           setStatus('✅ Dados enviados com sucesso. Em breve entraremos em contato.', 'success');
-          // Redireciona para página de agradecimento
-          setTimeout(()=>{ window.location.href = '/obrigado.html'; }, 600);
+          
+          // Redirecionar para página de agradecimento
+          setTimeout(() => { 
+            window.location.href = '/obrigado.html'; 
+          }, 600);
+          
         }catch(err){
-          try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(payload)); }catch(e){ /* ignore */ }
-          setStatus('❌ Não foi possível enviar agora. Seus dados foram salvos localmente.', 'error');
+          console.error('Erro ao enviar para Brevo:', err);
+          
+          // Salvar rascunho em caso de erro
+          try { 
+            localStorage.setItem(DRAFT_KEY, JSON.stringify(payload)); 
+          } catch (e) { 
+            /* ignore */ 
+          }
+          
+          setStatus(`❌ Não foi possível enviar agora. ${err && err.message ? 'Detalhe: '+err.message+' .' : ''} Seus dados foram salvos localmente.`, 'error');
         }finally{
           submitBtn.classList.remove('loading');
           submitBtn.textContent = 'Enviar';
