@@ -240,8 +240,13 @@
     .btn.loading{opacity:.7;pointer-events:none}
 
     /* Checkboxes linha única */
-    .checkbox-line{display:flex;align-items:flex-start;gap:10px}
-    .checkbox-line input[type="checkbox"]{margin-top:3px}
+      .checkbox-line{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid #e5e5e5;border-radius:10px;background:#fafafa;transition:background .2s ease, box-shadow .2s ease, border-color .2s ease}
+      .checkbox-line:hover{background:#f7f3f2;border-color:#dcdcdc}
+      .checkbox-line:focus-within{box-shadow:0 0 0 3px rgba(190,45,35,.15);border-color:var(--red-minas);background:#fff7f6}
+      .checkbox-line input[type="checkbox"]{margin-top:3px;accent-color:var(--red-minas);outline:none}
+      .checkbox-line input[type="checkbox"]:focus{outline:2px solid rgba(192,54,44,.25);outline-offset:2px}
+      .checkbox-line label{transition:color var(--dur-s) var(--ease-out), font-weight var(--dur-s) var(--ease-out), background .2s ease; border-radius:8px; padding:4px 6px}
+      .checkbox-line label.is-selected{color:var(--red-minas);font-weight:800;background:#ffeceb}
 
     /* Modal simples para PDF CAIXA */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:2000}
@@ -749,18 +754,6 @@
                 <label for="accelerate">Quero acelerar minha pré-análise (abrirá termo da CAIXA)</label>
               </div>
             </div>
-            <div class="form-row-two">
-              <div class="form-group">
-                <label for="appointmentDate">Data para atendimento no stand</label>
-                <input type="date" id="appointmentDate" name="appointmentDate" />
-                <div class="helper">Selecione a data desejada (exceto domingos).</div>
-              </div>
-              <div class="form-group">
-                <label for="appointmentTime">Horário</label>
-                <input type="time" id="appointmentTime" name="appointmentTime" min="09:00" max="18:00" step="1800" />
-                <div class="helper">Horários comerciais: 09:00 às 18:00 (intervalo de 30min).</div>
-              </div>
-            </div>
           </fieldset>
 
           <!-- Seção Consentimentos -->
@@ -970,9 +963,7 @@
         email: form.querySelector('#email'),
         incomeProfile: form.querySelector('#incomeProfile'),
         cityUf: form.querySelector('#cityUf'),
-        lgpdConsent: form.querySelector('#lgpdConsent'),
-        appointmentDate: form.querySelector('#appointmentDate'),
-        appointmentTime: form.querySelector('#appointmentTime')
+        lgpdConsent: form.querySelector('#lgpdConsent')
       };
 
       const ENDPOINT = 'https://formspree.io/f/xpwkazvy';
@@ -1083,7 +1074,18 @@
           const raw = localStorage.getItem(DRAFT_KEY);
           if(!raw) return;
           const draft = JSON.parse(raw);
-          Object.keys(fields).forEach(k=>{ if(draft[k]) fields[k].value = draft[k]; });
+          Object.keys(fields).forEach(k=>{
+            if(k==='lgpdConsent'){
+              fields.lgpdConsent.checked = !!draft.lgpdConsent;
+            } else {
+              if(draft[k]!==undefined && draft[k]!==null) fields[k].value = draft[k];
+            }
+          });
+          // Acelerar pré-análise (checkbox fora do objeto fields)
+          if(typeof draft.accelerate !== 'undefined') accelerate.checked = !!draft.accelerate;
+          // Atualiza visual dos checkboxes
+          updateCheckboxVisual(fields.lgpdConsent);
+          updateCheckboxVisual(accelerate);
           setStatus('Rascunho recuperado do armazenamento local.', '');
         }catch(err){ /* ignore */ }
       })();
@@ -1117,12 +1119,6 @@
             return setError(id, '');
           case 'lgpdConsent':
             if(!fields.lgpdConsent.checked) return setError(id, 'Este consentimento é obrigatório.');
-            return setError(id, '');
-          case 'appointmentDate':
-            if(v && !dateIsAllowed(v)) return setError(id, 'Selecione um dia válido (não aceitamos domingo).');
-            return setError(id, '');
-          case 'appointmentTime':
-            if(v && !timeIsAllowed(v)) return setError(id, 'Horário fora do período comercial.');
             return setError(id, '');
         }
       }
@@ -1159,8 +1155,6 @@
           incomeProfile: fields.incomeProfile.value,
           cityUf: fields.cityUf.value.trim(),
           lgpdConsent: fields.lgpdConsent.checked,
-          appointmentDate: fields.appointmentDate.value,
-          appointmentTime: fields.appointmentTime.value,
           accelerate: accelerate.checked,
           ts: Date.now()
         };
@@ -1168,7 +1162,7 @@
 
       function validateAll(){
         clearErrors();
-        const ids = ['fullName','cpf','whatsapp','email','incomeProfile','cityUf','lgpdConsent','appointmentDate','appointmentTime'];
+        const ids = ['fullName','cpf','whatsapp','email','incomeProfile','cityUf','lgpdConsent'];
         let ok = true; ids.forEach(id=>{ validateField(id); const el = form.querySelector(`[data-error-for="${id}"]`); if(el && el.textContent) ok=false; });
         return ok;
       }
@@ -1192,6 +1186,8 @@
           localStorage.removeItem(DRAFT_KEY);
           form.reset();
           setStatus('✅ Dados enviados com sucesso. Em breve entraremos em contato.', 'success');
+          // Redireciona para página de agradecimento
+          setTimeout(()=>{ window.location.href = '/obrigado.html'; }, 600);
         }catch(err){
           try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(payload)); }catch(e){ /* ignore */ }
           setStatus('❌ Não foi possível enviar agora. Seus dados foram salvos localmente.', 'error');
@@ -1202,6 +1198,33 @@
       }
 
       form.addEventListener('submit', (e)=>{ e.preventDefault(); submitForm(); });
+
+      // Feedback visual para checkboxes (consentimento/accelerate) e autosave
+      function updateCheckboxVisual(el){
+        if(!el) return;
+        const label = form.querySelector(`label[for="${el.id}"]`);
+        if(label){ label.classList.toggle('is-selected', !!el.checked); }
+      }
+      // Eventos de mudança para indicar seleção e agendar autosave
+      fields.lgpdConsent.addEventListener('change', (e)=>{
+        updateCheckboxVisual(e.target);
+        setError('lgpdConsent','');
+        setStatus(e.target.checked ? 'Consentimento registrado.' : 'Consentimento removido.', '');
+        scheduleAutosave();
+      });
+      accelerate.addEventListener('change', (e)=>{ updateCheckboxVisual(e.target); scheduleAutosave(); });
+      // Autosave leve com debounce
+      let autosaveTimer=null;
+      function scheduleAutosave(){
+        if(autosaveTimer) clearTimeout(autosaveTimer);
+        autosaveTimer = setTimeout(()=>{
+          try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(getPayload())); }
+          catch(err){ /* ignore autosave errors */ }
+        }, 300);
+      }
+      // Aplicar estado visual inicial
+      updateCheckboxVisual(fields.lgpdConsent);
+      updateCheckboxVisual(accelerate);
     })();
   </script>
 </body>
