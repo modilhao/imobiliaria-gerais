@@ -240,9 +240,10 @@
     .btn.loading{opacity:.7;pointer-events:none}
 
     /* Checkboxes linha única */
-      .checkbox-line{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid #e5e5e5;border-radius:10px;background:#fafafa;transition:background .2s ease, box-shadow .2s ease, border-color .2s ease}
+      .checkbox-line{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid #e5e5e5;border-radius:10px;background:#fafafa;transition:background .2s ease, box-shadow .2s ease, border-color .2s ease; cursor:pointer}
       .checkbox-line:hover{background:#f7f3f2;border-color:#dcdcdc}
       .checkbox-line:focus-within{box-shadow:0 0 0 3px rgba(190,45,35,.15);border-color:var(--red-minas);background:#fff7f6}
+      .checkbox-line.is-checked{border-color:var(--red-minas);background:#fff7f6}
       .checkbox-line input[type="checkbox"]{margin-top:3px;accent-color:var(--red-minas);outline:none}
       .checkbox-line input[type="checkbox"]:focus{outline:2px solid rgba(192,54,44,.25);outline-offset:2px}
       .checkbox-line label{transition:color var(--dur-s) var(--ease-out), font-weight var(--dur-s) var(--ease-out), background .2s ease; border-radius:8px; padding:4px 6px}
@@ -1204,6 +1205,8 @@
         if(!el) return;
         const label = form.querySelector(`label[for="${el.id}"]`);
         if(label){ label.classList.toggle('is-selected', !!el.checked); }
+        const line = el.closest('.checkbox-line');
+        if(line){ line.classList.toggle('is-checked', !!el.checked); }
       }
       // Eventos de mudança para indicar seleção e agendar autosave
       fields.lgpdConsent.addEventListener('change', (e)=>{
@@ -1213,6 +1216,17 @@
         scheduleAutosave();
       });
       accelerate.addEventListener('change', (e)=>{ updateCheckboxVisual(e.target); scheduleAutosave(); });
+      // Tornar toda a linha clicável, preservando acessibilidade
+      Array.from(form.querySelectorAll('.checkbox-line')).forEach(line=>{
+        line.addEventListener('click', (ev)=>{
+          const input = line.querySelector('input[type="checkbox"]');
+          if(!input) return;
+          const tag = (ev.target.tagName||'').toLowerCase();
+          if(tag==='input' || tag==='label' || tag==='a' || tag==='button') return;
+          input.checked = !input.checked;
+          input.dispatchEvent(new Event('change',{bubbles:true}));
+        });
+      });
       // Autosave leve com debounce
       let autosaveTimer=null;
       function scheduleAutosave(){
