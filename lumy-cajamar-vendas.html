@@ -748,6 +748,28 @@
             </div>
           </fieldset>
 
+          <!-- Renda Familiar Comprovada -->
+          <fieldset style="border:none;padding:0;margin:8px 0 12px">
+            <legend style="font-weight:800;margin-bottom:10px">Renda Familiar Comprovada</legend>
+            <div class="form-group">
+              <label for="incomeProof">Comprovação de renda *</label>
+              <select id="incomeProof" name="incomeProof" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="salario">Salário (holerite/contracheque)</option>
+                <option value="prolabore">Pró-labore (empresários)</option>
+                <option value="extrato">Extrato bancário</option>
+              </select>
+              <div class="helper">Escolha como pretende comprovar a renda familiar.</div>
+              <div class="error" data-error-for="incomeProof"></div>
+            </div>
+            <div class="form-group">
+              <label for="incomeBRL">Renda familiar mensal (BRL) *</label>
+              <input id="incomeBRL" name="incomeBRL" type="text" inputmode="decimal" placeholder="R$ 0,00" required />
+              <div class="helper">Informe em reais. Ex.: R$ 3.500,00</div>
+              <div class="error" data-error-for="incomeBRL"></div>
+            </div>
+          </fieldset>
+
           <!-- Seções combinadas em coluna única para alinhamento perfeito -->
           <!-- Seção Pré-análise -->
           <fieldset style="border:none;padding:0;margin:8px 0 12px">
@@ -966,6 +988,8 @@
         whatsapp: form.querySelector('#whatsapp'),
         email: form.querySelector('#email'),
         incomeProfile: form.querySelector('#incomeProfile'),
+        incomeProof: form.querySelector('#incomeProof'),
+        incomeBRL: form.querySelector('#incomeBRL'),
         cityUf: form.querySelector('#cityUf'),
         lgpdConsent: form.querySelector('#lgpdConsent')
       };
@@ -975,6 +999,18 @@
 
       // Utilidades
       const onlyDigits = (s) => (s||'').replace(/\D+/g,'');
+      function parseBRL(str){
+        const s = (str||'').toString().trim().replace(/R\$\s?/i,'');
+        if(!s) return NaN;
+        // remove milhares e normaliza decimal
+        const normalized = s.replace(/\./g,'').replace(/,/g,'.');
+        const n = parseFloat(normalized);
+        return isNaN(n) ? NaN : n;
+      }
+      function formatBRL(n){
+        try{ return new Intl.NumberFormat('pt-BR', { style:'currency', currency:'BRL' }).format(n); }
+        catch{ return `R$ ${Number(n||0).toFixed(2).replace('.',',')}`; }
+      }
       function setError(id, message){
         const el = form.querySelector(`[data-error-for="${id}"]`);
         if(el){ el.textContent = message || ''; }
@@ -1097,6 +1133,11 @@
       // Máscaras em tempo real
       fields.cpf.addEventListener('input', (e)=>{ e.target.value = formatCPF(e.target.value); validateField('cpf'); });
       fields.whatsapp.addEventListener('input', (e)=>{ e.target.value = formatPhone(e.target.value); validateField('whatsapp'); });
+      fields.incomeBRL.addEventListener('blur', (e)=>{
+        const val = parseBRL(e.target.value);
+        if(!isNaN(val) && val>0){ e.target.value = formatBRL(val); }
+        validateField('incomeBRL');
+      });
 
       // Validações em tempo real
       function validateField(id){
@@ -1118,6 +1159,15 @@
           case 'incomeProfile':
             if(!v) return setError(id, 'Selecione uma opção.');
             return setError(id, '');
+          case 'incomeProof':
+            if(!v) return setError(id, 'Selecione uma opção.');
+            return setError(id, '');
+          case 'incomeBRL':
+            {
+              const val = parseBRL(v);
+              if(isNaN(val) || val<=0) return setError(id, 'Informe um valor em reais válido.');
+              return setError(id, '');
+            }
           case 'cityUf':
             if(!cityUfIsValid(v)) return setError(id, 'Use o formato Cidade - UF (ex.: Cajamar - SP).');
             return setError(id, '');
@@ -1128,7 +1178,7 @@
       }
       Object.keys(fields).forEach(k=>{
         const el = fields[k];
-        const ev = (k==='email' || k==='incomeProfile') ? 'change' : 'input';
+        const ev = (k==='email' || k==='incomeProfile' || k==='incomeProof') ? 'change' : 'input';
         el.addEventListener(ev, ()=> validateField(k));
         el.addEventListener('blur', ()=> validateField(k));
       });
@@ -1157,6 +1207,8 @@
           whatsapp: onlyDigits(fields.whatsapp.value),
           email: fields.email.value.trim(),
           incomeProfile: fields.incomeProfile.value,
+          incomeProof: fields.incomeProof.value,
+          incomeBRL: fields.incomeBRL.value.trim(),
           cityUf: fields.cityUf.value.trim(),
           lgpdConsent: fields.lgpdConsent.checked,
           accelerate: accelerate.checked,
@@ -1166,7 +1218,7 @@
 
       function validateAll(){
         clearErrors();
-        const ids = ['fullName','cpf','whatsapp','email','incomeProfile','cityUf','lgpdConsent'];
+        const ids = ['fullName','cpf','whatsapp','email','incomeProfile','incomeProof','incomeBRL','cityUf','lgpdConsent'];
         let ok = true; ids.forEach(id=>{ validateField(id); const el = form.querySelector(`[data-error-for="${id}"]`); if(el && el.textContent) ok=false; });
         return ok;
       }
